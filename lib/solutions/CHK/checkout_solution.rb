@@ -41,7 +41,3 @@ class CheckoutSolution
     %w[A B].include?(sku) ? quantity % price_table[:special_quantity] : quantity
   end
 end
-
-
-
-

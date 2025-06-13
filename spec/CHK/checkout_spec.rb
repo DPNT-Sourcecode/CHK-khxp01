@@ -75,7 +75,3 @@ describe CheckoutSolution do
   end
 end
 
-
-
-
-
