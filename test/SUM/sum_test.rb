@@ -10,6 +10,9 @@ class ClientTest < Minitest::Test
 
   def test_sum
     assert_equal 3, SumSolution.new.compute(1, 2), 'App should add two numbers'
-  end
 
+    assert_raises(SumSolution::SumError) do
+      SumSolution.new.compute(-1, 2)
+    end
+  end
 end

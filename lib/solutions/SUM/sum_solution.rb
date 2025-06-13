@@ -6,6 +6,6 @@ class SumSolution
     raise SumError, "#{x} is not a postive integer between 0-100" if x < 0 || x > 100
     raise SumError, "#{y} is not a postive integer between 0-100" if y < 0 || y > 100
 
-    x + y
+    #x + y
   end
 end
