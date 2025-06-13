@@ -12,3 +12,8 @@ gem 'simplecov-csv', require: false, group: :test
 
 gem 'minitest', '~> 5.25.5'
 gem 'rake'
+
+group :test do
+  gem 'byebug'
+end
+

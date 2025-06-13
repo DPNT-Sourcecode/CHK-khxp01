@@ -1,4 +1,6 @@
 # noinspection RubyUnusedLocalVariable
+# 
+require 'byebug'
 class CheckoutSolution
 
   PRICES = {
@@ -14,6 +16,7 @@ class CheckoutSolution
     item_count = Hash[%w[A B C D].map { |sku| [sku, skus.upcase.count(sku)] }]
 
     item_count.reduce(0) do |sum, (sku, quantity)|
+      byebug
       price_table = PRICES[sku.to_sym]
 
       sum += quantity / price_table[:special_quantity] * price_table[:special_price] if %w[A B].include?(sku)
@@ -24,3 +27,4 @@ class CheckoutSolution
     end
   end
 end
+
