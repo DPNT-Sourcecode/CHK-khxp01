@@ -64,7 +64,17 @@ describe CheckoutSolution do
       end
     end
   end
+
+  context 'with input containing item with multiple special offers' do
+    let(:skus) { 'AAAAAAAAA' } # 9*A -> 3*130 (least beneficial) || 1*200 + 1*130 + 50 (most beneficial)
+    let(:expected_sum) { 1*200 + 1*130 + 50 }
+
+    it 'chooses the most beneficial special offer price' do
+      expect(service_call).to eq(expected_sum)
+    end
+  end
 end
+
 
 
 
