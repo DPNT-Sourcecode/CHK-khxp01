@@ -2,8 +2,8 @@
 class HelloSolution
 
   def hello(friend_name)
-    'Hello world!'
+    "Hello #{friend_name.presence || 'World'}!"
   end
-
 end
+
 
