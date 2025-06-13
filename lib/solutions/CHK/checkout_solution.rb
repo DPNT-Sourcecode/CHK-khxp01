@@ -12,7 +12,7 @@ class CheckoutSolution
   def checkout(skus)
     return -1 if skus.nil? || skus.class != String || skus.chars.any? { |ch| !%w[A B C D].include?(ch) }
 
-    item_count = Hash[%w[A B C D].map { |sku| [sku, skus.count(sku)] }]
+    item_count = get_item_counts(skus)
 
     item_count.reduce(0) do |sum, (sku, quantity)|
       price_table = PRICES[sku.to_sym]
@@ -24,4 +24,11 @@ class CheckoutSolution
       sum += price_table[:price] * regular_price_count
     end
   end
+
+  private
+
+  def get_item_counts(skus)
+    Hash[%w[A B C D].map { |sku| [sku, skus.count(sku)] }]
+  end
 end
+
