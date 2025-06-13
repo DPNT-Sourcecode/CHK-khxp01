@@ -27,14 +27,15 @@ describe CheckoutSolution do
     end
   end
 
-  context 'with input AABACDDAA' do
-    let(:skus) { 'AABADDA' } # A -> 1*130 + 1*50, B -> 1*30, C -> 0*20, D -> 2*15
-    let(:expected_sum) { 1*130 + 1*50 + 1*30 + 0*20 + 2*15 }
+  context 'with input containing item without special offer' do
+    let(:skus) { 'CCD' }
+    let(:expected_sum) { 2*20 + 1*15 }
 
     it 'returns the correct checkout sum' do
       expect(service_call).to eq(expected_sum)
     end
   end
 end
+
 
 

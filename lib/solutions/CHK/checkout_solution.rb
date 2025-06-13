@@ -12,17 +12,9 @@ class CheckoutSolution
   def checkout(skus)
     return -1 if skus.nil? || skus.class != String || skus.chars.any? { |ch| !%w[A B C D].include?(ch) }
 
-    item_count = get_item_counts(skus)
+    item_counts = get_item_counts(skus)
 
-    item_count.reduce(0) do |sum, (sku, quantity)|
-      price_table = PRICES[sku.to_sym]
-
-      sum += quantity / price_table[:special_quantity] * price_table[:special_price] if %w[A B].include?(sku)
-
-      regular_price_count = %w[A B].include?(sku) ? quantity % price_table[:special_quantity] : quantity
-
-      sum += price_table[:price] * regular_price_count
-    end
+    calculate_sum(item_counts)
   end
 
   private
@@ -30,5 +22,22 @@ class CheckoutSolution
   def get_item_counts(skus)
     Hash[%w[A B C D].map { |sku| [sku, skus.count(sku)] }]
   end
+
+  def calculate_sum(item_counts)
+    item_counts.reduce(0) do |sum, (sku, quantity)|
+      price_table = PRICES[sku.to_sym]
+
+      sum += calculate_special_price(quantity, price_table) if %w[A B].include?(sku)
+
+      regular_price_count = %w[A B].include?(sku) ? quantity % price_table[:special_quantity] : quantity
+
+      sum += price_table[:price] * regular_price_count
+    end
+  end
+
+  def calculate_special_price(quantity, price_table)
+    quantity / price_table[:special_quantity] * price_table[:special_price]
+  end
 end
+
 
