@@ -27,8 +27,12 @@ class CheckoutSolution
     item_counts.reduce(0) do |sum, (sku, quantity)|
       byebug
       price_table = PRICES[sku.to_sym]
+      
+      if price_table[:special_offers].nil?
+        sum += quantity * price_table[:price]
 
-      next sum += quantity * price_table[:price] if price_table[:special_offers].nil?
+        next sum
+      end
 
       sum += calculate_special_price(quantity, price_table)
     end
@@ -40,4 +44,5 @@ class CheckoutSolution
     offers.min + quantity % price_table[:special_offers][offers.index(offers.min)][:quantity] * price_table[:price]
   end
 end
+
 
