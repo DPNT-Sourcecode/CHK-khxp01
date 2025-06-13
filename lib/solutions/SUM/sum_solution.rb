@@ -9,4 +9,3 @@ class SumSolution
     x + y
   end
 end
-
