@@ -27,24 +27,15 @@ class CheckoutSolution
     item_counts.reduce(0) do |sum, (sku, quantity)|
       price_table = PRICES[sku.to_sym]
 
-      special_price_sum, offer_index = *calculate_special_price(quantity, price_table[:special_offers])
+      next sum += quantity * price_table[:price] if price_table[:special_offers].nil?
 
-      byebug
-      sum += special_price_sum if %w[A B].include?(sku)
-
-      sum += regular_price_count(sku, quantity, price_table[:special_offers][offer_index][:quantity]) * price_table[:price]
+      sum += calculate_special_price(quantity, price_table)
     end
   end
 
-  def calculate_special_price(quantity, special_offers)
-    results = special_offers.map { |offer| quantity / offer[:quantity] * offer[:price] }
+  def calculate_special_price(quantity, price_table)
+    offers = price_table[:special_offers].map { |offer| quantity / offer[:quantity] * offer[:price] }
 
-    [results.min, results.index(results.min)]
-  end
-
-  def regular_price_count(sku, quantity, special_quantity)
-    %w[A B].include?(sku) ? quantity % special_quantity : quantity
+    offers.min + quantity % price_table[:special_offers][offers.index(offers.min)][:quantity] * price_table[:price]
   end
 end
-
-
