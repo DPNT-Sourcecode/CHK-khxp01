@@ -27,7 +27,16 @@ describe CheckoutSolution do
       expect(service_call).to eq(expected_sum)
     end
   end
+
+  context 'with input Aa' do
+    let(:skus) { 'Aa' }
+
+    it 'returns -1' do
+      expect(service_call).to eq(-1)
+    end
+  end
 end
+
 
 
 

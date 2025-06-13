@@ -9,7 +9,7 @@ class CheckoutSolution
   }.freeze
 
   def checkout(skus)
-    return -1 if skus.nil? || skus.class != String || %w[A B C D].none? { |el| skus.include?(el) }
+    return -1 if skus.nil? || skus.class != String || skus.chars.all? { |ch| %w[A B C D].include?(ch) }
 
     item_count = Hash[%w[A B C D].map { |sku| [sku, skus.count(sku)] }]
 
@@ -24,6 +24,7 @@ class CheckoutSolution
     end
   end
 end
+
 
 
 
