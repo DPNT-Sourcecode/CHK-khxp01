@@ -3,8 +3,8 @@ require 'byebug'
 class CheckoutSolution
 
   PRICES = {
-    A: { price: 50, special_offers: [ { quantity: 3, price: 130 }, { quantity: 5, price: 200 } ] },
-    B: { price: 30, special_quantity: 2, special_price: 45 },
+    A: { price: 50, special_offers: [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }] },
+    B: { price: 30, special_offers: [{ quantity: 2, price: 45 }] },
     C: { price: 20 },
     D: { price: 15 }
   }.freeze
@@ -29,16 +29,19 @@ class CheckoutSolution
 
       sum += calculate_special_price(quantity, price_table) if %w[A B].include?(sku)
 
-      regular_price_count = %w[A B].include?(sku) ? quantity % price_table[:special_quantity] : quantity
-
-      sum += price_table[:price] * regular_price_count
+      sum += regular_price_count * price_table[:price]
     end
   end
 
   def calculate_special_price(quantity, price_table)
     quantity / price_table[:special_quantity] * price_table[:special_price]
   end
+
+  def regular_price_count(sku, quantity, price_table)
+    %w[A B].include?(sku) ? quantity % price_table[:special_quantity] : quantity
+  end
 end
+
 
 
 
