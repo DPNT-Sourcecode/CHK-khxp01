@@ -4,5 +4,3 @@ class HelloSolution
     "Hello, #{friend_name}!"
   end
 end
-
-

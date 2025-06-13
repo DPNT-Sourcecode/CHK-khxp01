@@ -6,5 +6,3 @@ describe HelloSolution do
   end
 end
 
-
-
