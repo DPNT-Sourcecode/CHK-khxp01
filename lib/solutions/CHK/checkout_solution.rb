@@ -3,7 +3,7 @@ require 'byebug'
 class CheckoutSolution
 
   PRICES = {
-    A: { price: 50, special_quantity: 3, special_price: 130 },
+    A: { price: 50, special_offers: [ { quantity: 3, price: 130 }, { quantity: 5, price: 200 } ] },
     B: { price: 30, special_quantity: 2, special_price: 45 },
     C: { price: 20 },
     D: { price: 15 }
@@ -39,5 +39,6 @@ class CheckoutSolution
     quantity / price_table[:special_quantity] * price_table[:special_price]
   end
 end
+
 
 
