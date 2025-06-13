@@ -46,7 +46,3 @@ class CheckoutSolution
     x.min
   end
 end
-
-
-
-
