@@ -31,11 +31,41 @@ describe CheckoutSolution do
     let(:skus) { 'CCD' }
     let(:expected_sum) { 2*20 + 1*15 }
 
-    it 'returns the correct checkout sum' do
+    it 'returns the sum using the regular prices' do
       expect(service_call).to eq(expected_sum)
     end
   end
+
+  context 'with input containing item with a single special offer' do
+    context 'when all items can be covered by the special offer' do
+      let(:skus) { 'BBBB' }
+      let(:expected_sum) { 2*45 }
+
+      it 'applies the special offer price to the items' do
+        expect(service_call).to eq(expected_sum)
+      end
+    end
+
+    context 'when no items can be covered by the special offer' do
+      let(:skus) { 'B' }
+      let(:expected_sum) { 1*30 }
+
+      it 'applies the regular price to the items' do
+        expect(service_call).to eq(expected_sum)
+      end
+    end
+
+    context 'when only some items can be covered by the special offer' do
+      let(:skus) { 'BBB' }
+      let(:expected_sum) { 1*45 + 1*30 }
+
+      it 'applies the regular price to the items' do
+        expect(service_call).to eq(expected_sum)
+      end
+    end
+  end
 end
+
 
 
 
