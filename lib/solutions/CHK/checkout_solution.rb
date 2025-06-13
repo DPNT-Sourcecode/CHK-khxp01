@@ -9,9 +9,9 @@ class CheckoutSolution
   }.freeze
 
   def checkout(skus)
-    return -1 if skus.nil? || skus.class != String
+    return -1 if skus.nil? || skus.class != String || %w[A B C D].none? { |el| skus.include?(el) }
 
-    item_count = Hash[%w[A B C D].map { |sku| [sku, skus.upcase.count(sku)] }]
+    item_count = Hash[%w[A B C D].map { |sku| [sku, skus.count(sku)] }]
 
     item_count.reduce(0) do |sum, (sku, quantity)|
       price_table = PRICES[sku.to_sym]
@@ -24,5 +24,6 @@ class CheckoutSolution
     end
   end
 end
+
 
 
