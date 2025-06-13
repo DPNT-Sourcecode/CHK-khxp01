@@ -16,4 +16,3 @@ gem 'rake'
 group :test do
   gem 'byebug'
 end
-

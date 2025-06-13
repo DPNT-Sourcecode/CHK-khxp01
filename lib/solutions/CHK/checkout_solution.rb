@@ -25,8 +25,3 @@ class CheckoutSolution
     end
   end
 end
-
-
-
-
-
