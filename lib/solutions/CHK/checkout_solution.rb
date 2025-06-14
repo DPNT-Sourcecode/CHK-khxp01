@@ -59,12 +59,12 @@ class CheckoutSolution
     sum = 0
 
     GROUP_DISCOUNT_OFFERS.each do |group, offer|
-      byebug
-      group_skus = group.sort_by { |sku| -GENERAL_PRICES[sku] }
       group_quantity = item_counts.slice(*group).values.reduce(:+)
       group_count = group_quantity / offer[:quantity]
       sum += group_count * offer[:price]
       items_to_eliminate_from_count = offer[:quantity] * group_count
+
+      group_skus = group.sort_by { |sku| -GENERAL_PRICES[sku] }
 
       while items_to_eliminate_from_count > 0
         updated_count = [item_counts[group_skus.first] - items_to_eliminate_from_count, 0].max
@@ -88,3 +88,4 @@ class CheckoutSolution
     sum
   end
 end
+
