@@ -27,7 +27,7 @@ describe CheckoutSolution do
     end
   end
 
-  context 'with input containing item without special offer' do
+  context 'with input containing item without multi price offer' do
     let(:skus) { 'CCD' }
     let(:expected_sum) { 2*20 + 1*15 }
 
@@ -36,17 +36,17 @@ describe CheckoutSolution do
     end
   end
 
-  context 'with input containing item with a single special offer' do
-    context 'when all items can be covered by the special offer' do
+  context 'with input containing item with a single multi price offer' do
+    context 'when all items can be covered by the multi price offer' do
       let(:skus) { 'BBBB' }
       let(:expected_sum) { 2*45 }
 
-      it 'applies the special offer price to the items' do
+      it 'applies the multi price offer price to the items' do
         expect(service_call).to eq(expected_sum)
       end
     end
 
-    context 'when no items can be covered by the special offer' do
+    context 'when no items can be covered by the multi price offer' do
       let(:skus) { 'B' }
       let(:expected_sum) { 1*30 }
 
@@ -55,7 +55,7 @@ describe CheckoutSolution do
       end
     end
 
-    context 'when only some items can be covered by the special offer' do
+    context 'when only some items can be covered by the multi price offer' do
       let(:skus) { 'BBB' }
       let(:expected_sum) { 1*45 + 1*30 }
 
@@ -65,14 +65,35 @@ describe CheckoutSolution do
     end
   end
 
-  context 'with input containing item with multiple special offers' do
+  context 'with input containing item with multiple multi price offers' do
     let(:skus) { 'AAAAAAAAA' }
     let(:expected_sum) { 1*200 + 1*130 + 50 }
 
-    it 'returns the most beneficial special offer price' do
+    it 'returns the most beneficial multi price offer price' do
       expect(service_call).to eq(expected_sum)
     end
   end
+
+  context 'when input contains item with free product offer' do
+    context 'when the free product is of a different sku' do
+      let(:skus) { 'EEBB' }
+      let(:expected_sum) { 2*40 + 1*30 } # 1 B free
+
+      it 'returns the expected price' do
+        expect(service_call).to eq(expected_sum)
+      end
+    end
+
+    context 'when the free product is of the same sku' do
+      let(:skus) { 'FFFF' }
+      let(:expected_sum) { 2*10 } # 2 F free
+
+      it 'returns the expected price' do
+        expect(service_call).to eq(expected_sum)
+      end
+    end
+  end
 end
+
 
 
