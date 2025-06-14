@@ -23,7 +23,6 @@ class CheckoutSolution
     item_counts = get_item_counts(skus)
 
     FREE_PRODUCT_OFFERS.each do |sku, offer|
-      byebug
       free_item_count = item_counts[sku] / offer[:quantity]
 
       item_counts[offer[:sku]] = [item_counts[offer[:sku]] - free_item_count, 0].max
@@ -42,9 +41,11 @@ class CheckoutSolution
     sum = 0
 
     item_counts.each do |sku, quantity|
-      BULK_BUY_OFFERS[sku].sort_by { |offer| -offer[:quantity] }.each do |offer|
-        sum += quantity / offer[:quantity] * offer[:price]
-        quantity %= offer[:quantity]
+      if BULK_BUY_OFFERS[sku]
+        BULK_BUY_OFFERS[sku].sort_by { |offer| -offer[:quantity] }.each do |offer|
+          sum += quantity / offer[:quantity] * offer[:price]
+          quantity %= offer[:quantity]
+        end
       end
 
       sum += quantity * GENERAL_PRICES[sku]
@@ -53,6 +54,3 @@ class CheckoutSolution
     sum
   end
 end
-
-
-
