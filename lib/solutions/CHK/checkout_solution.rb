@@ -2,12 +2,17 @@
 require 'byebug'
 class CheckoutSolution
 
-  PRICES = {
-    A: { price: 50, discount_offers: [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }] },
-    B: { price: 30, discount_offers: [{ quantity: 2, price: 45 }] },
-    C: { price: 20 },
-    D: { price: 15 },
-    E: { price: 40, free_offers: [{ quantity: 2, free: 'B' }] }
+  GENERAL_PRICES = {
+    A: 50, B: 30, C: 20, D: 15, E: 40
+  }.freeze
+
+  BULK_BUY_OFFERS = {
+    A: [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }],
+    B: [{ quantity: 2, price: 45 }]
+  }.freeze
+
+  FREE_PRODUCT_OFFERS = {
+    E: { quantity: 2, sku: 'B' }
   }.freeze
 
   def checkout(skus)
@@ -15,16 +20,25 @@ class CheckoutSolution
 
     item_counts = get_item_counts(skus)
 
+    FREE_PRODUCT_OFFERS.each do |sku, offer|
+      byebug
+      free_item_count = item_counts[sku] / offer[:quantity]
+
+      item_counts[offer[:sku]] = [item_counts[offer[:sku]] - free_item_count, 0].max
+    end
+
     calculate_sum(item_counts)
   end
 
   private
 
   def get_item_counts(skus)
-    Hash[%w[A B C D].map { |sku| [sku, skus.count(sku)] }]
+    Hash[%i[A B C D].map { |sku| [sku, skus.count(sku.to_s)] }]
   end
 
   def calculate_sum(item_counts)
+    sum = 0
+
     item_counts.reduce(0) do |sum, (sku, quantity)|
       price_table = PRICES[sku.to_sym]
       
@@ -36,15 +50,16 @@ class CheckoutSolution
 
       sum += calculate_special_price(quantity, price_table)
     end
-  end
 
-  def calculate_special_price(quantity, price_table)
-    price_table[:special_offers].each do |offer|
-      offer
+    item_counts.each do |sku, quantity|
+      BULK_BUY_OFFERS[sku].sort_by { |offer| -offer[:quantity] }.each do |offer|
+        sum += quantity / offer[:quantity] * offer[:price]
+        quantity %= offer[:quantity]
+      end
+
+      sum += quantity * GENERAL_PRICES[sku]
     end
-
-    quantity / offer[:quantity] * offer[:price]
-    quantity % offer[:quantity] * price_table[:price]
   end
 end
+
 
