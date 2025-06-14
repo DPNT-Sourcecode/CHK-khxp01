@@ -8,7 +8,7 @@ class CheckoutSolution
     'A' => 50, 'B' => 30, 'C' => 20, 'D' => 15, 'E' => 40, 'F' => 10
   }.freeze
 
-  BULK_BUY_OFFERS = {
+  MULTI_PRICE_OFFERS = {
     'A' => [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }],
     'B' => [{ quantity: 2, price: 45 }]
   }.freeze
@@ -44,8 +44,8 @@ class CheckoutSolution
     sum = 0
 
     item_counts.each do |sku, quantity|
-      if BULK_BUY_OFFERS[sku]
-        BULK_BUY_OFFERS[sku].sort_by { |offer| -offer[:quantity] }.each do |offer|
+      if MULTI_PRICE_OFFERS[sku]
+        MULTI_PRICE_OFFERS[sku].sort_by { |offer| -offer[:quantity] }.each do |offer|
           sum += quantity / offer[:quantity] * offer[:price]
           quantity %= offer[:quantity]
         end
@@ -57,5 +57,6 @@ class CheckoutSolution
     sum
   end
 end
+
 
 
