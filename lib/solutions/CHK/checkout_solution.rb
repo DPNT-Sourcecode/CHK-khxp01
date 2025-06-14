@@ -2,7 +2,7 @@
 require 'byebug'
 class CheckoutSolution
 
-  ITEMS = %w[A B C D E].freeze
+  ITEMS = %w[A B C D E F].freeze
 
   GENERAL_PRICES = {
     'A' => 50, 'B' => 30, 'C' => 20, 'D' => 15, 'E' => 40, 'F' => 10
@@ -24,6 +24,7 @@ class CheckoutSolution
     item_counts = get_item_counts(skus)
 
     FREE_PRODUCT_OFFERS.each do |sku, offer|
+      byebug
       needed_quantity = sku == offer[:sku] ? offer[:quantity] + 1 : offer[:quantity]
       free_item_count = item_counts[sku] / needed_quantity
 
@@ -56,4 +57,5 @@ class CheckoutSolution
     sum
   end
 end
+
 
