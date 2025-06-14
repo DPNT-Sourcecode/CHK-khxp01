@@ -26,7 +26,7 @@ class CheckoutSolution
     'E' => { quantity: 2, sku: 'B' },
     'F' => { quantity: 2, sku: 'F' },
     'N' => { quantity: 3, sku: 'M' },
-    'R' => { quantity: 2, sku: 'Q' },
+    'R' => { quantity: 3, sku: 'Q' },
     'U' => { quantity: 3, sku: 'U' }
   }.freeze
 
@@ -35,7 +35,6 @@ class CheckoutSolution
 
     item_counts = get_item_counts(skus)
 
-    byebug
     FREE_PRODUCT_OFFERS.each do |sku, offer|
       needed_quantity = sku == offer[:sku] ? offer[:quantity] + 1 : offer[:quantity]
       free_item_count = item_counts[sku] / needed_quantity
@@ -69,4 +68,5 @@ class CheckoutSolution
     sum
   end
 end
+
 

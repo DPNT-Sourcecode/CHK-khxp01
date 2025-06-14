@@ -27,7 +27,7 @@ describe CheckoutSolution do
     end
   end
 
-  xcontext 'with input containing item without multi price offer' do
+  context 'with input containing item without multi price offer' do
     let(:skus) { 'CCD' }
     let(:expected_sum) { 2*20 + 1*15 }
 
@@ -36,7 +36,7 @@ describe CheckoutSolution do
     end
   end
 
-  xcontext 'with input containing item with a single multi price offer' do
+  context 'with input containing item with a single multi price offer' do
     context 'when all items can be covered by the multi price offer' do
       let(:skus) { 'BBBB' }
       let(:expected_sum) { 2*45 }
@@ -65,7 +65,7 @@ describe CheckoutSolution do
     end
   end
 
-  xcontext 'with input containing item with multiple multi price offers' do
+  context 'with input containing item with multiple multi price offers' do
     let(:skus) { 'AAAAAAAAA' }
     let(:expected_sum) { 1*200 + 1*130 + 50 }
 
@@ -74,7 +74,7 @@ describe CheckoutSolution do
     end
   end
 
-  xcontext 'when input contains item with free product offer' do
+  context 'when input contains item with free product offer' do
     context 'when the free product is of a different sku' do
       let(:skus) { 'EEBB' }
       let(:expected_sum) { 2*40 + 1*30 } # 1 B free
@@ -95,8 +95,7 @@ describe CheckoutSolution do
   end
 
   context 'when input contains all products twice' do
-    #let(:skus) { 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ' } # 1880 / 1850
-    let(:skus) { 'LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH' } # 1880 / 1850
+    let(:skus) { 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ' }
     let(:expected_sum) { 2*50 + 1*30 + 2*20 + 2*15 + 2*40 + 2*10 + 2*20 + 2*10 + 2*35 + 2*60 + 150 + 2*90 + 2*15 + 2*40 + 2*10 + 2*50 + 2*30 + 2*50 + 2*30 + 2*20 + 2*40 + 90 + 2*20 + 2*90 + 2*10 + 2*50 }
 
     it 'returns the expected price' do
@@ -104,6 +103,7 @@ describe CheckoutSolution do
     end
   end
 end
+
 
 
 
