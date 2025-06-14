@@ -38,11 +38,11 @@ class CheckoutSolution
   end
 
   def calculate_special_price(quantity, price_table)
-    x = price_table[:special_offers].map do |offer|
-      byebug
-      quantity / offer[:quantity] * offer[:price] + quantity % offer[:quantity] * price_table[:price]
+    price_table[:special_offers].each do |offer|
+      offer
     end
-    byebug
-    x.min
+
+    quantity / offer[:quantity] * offer[:price]
+    quantity % offer[:quantity] * price_table[:price]
   end
 end
