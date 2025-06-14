@@ -5,7 +5,7 @@ class CheckoutSolution
   ITEMS = %w[A B C D E].freeze
 
   GENERAL_PRICES = {
-    'A' => 50, 'B' => 30, 'C' => 20, 'D' => 15, 'E' => 40
+    'A' => 50, 'B' => 30, 'C' => 20, 'D' => 15, 'E' => 40, 'F' => 10
   }.freeze
 
   BULK_BUY_OFFERS = {
@@ -14,7 +14,8 @@ class CheckoutSolution
   }.freeze
 
   FREE_PRODUCT_OFFERS = {
-    'E' => { quantity: 2, sku: 'B' }
+    'E' => { quantity: 2, sku: 'B' },
+    'F' => { quantity: 2, sku: 'F' }
   }.freeze
 
   def checkout(skus)
@@ -23,7 +24,8 @@ class CheckoutSolution
     item_counts = get_item_counts(skus)
 
     FREE_PRODUCT_OFFERS.each do |sku, offer|
-      free_item_count = item_counts[sku] / offer[:quantity]
+      needed_quantity = sku == offer[:sku] ? offer[:quantity] + 1 : offer[:quantity]
+      free_item_count = item_counts[sku] / needed_quantity
 
       item_counts[offer[:sku]] = [item_counts[offer[:sku]] - free_item_count, 0].max
     end
@@ -54,3 +56,4 @@ class CheckoutSolution
     sum
   end
 end
+
