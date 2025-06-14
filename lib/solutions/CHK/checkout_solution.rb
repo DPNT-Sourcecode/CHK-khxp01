@@ -22,9 +22,9 @@ class CheckoutSolution
     return -1 if skus.nil? || skus.class != String || skus.chars.any? { |ch| !ITEMS.include?(ch) }
 
     item_counts = get_item_counts(skus)
+    byebug
 
     FREE_PRODUCT_OFFERS.each do |sku, offer|
-      byebug
       needed_quantity = sku == offer[:sku] ? offer[:quantity] + 1 : offer[:quantity]
       free_item_count = item_counts[sku] / needed_quantity
 
@@ -57,6 +57,3 @@ class CheckoutSolution
     sum
   end
 end
-
-
-

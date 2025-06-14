@@ -84,7 +84,7 @@ describe CheckoutSolution do
       end
     end
 
-    context 'when the free product is of the same sku' do
+    fcontext 'when the free product is of the same sku' do
       let(:skus) { 'FFFF' }
       let(:expected_sum) { 2*10 } # 2 F free
 
@@ -94,6 +94,4 @@ describe CheckoutSolution do
     end
   end
 end
-
-
 
