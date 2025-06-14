@@ -30,6 +30,10 @@ class CheckoutSolution
     'U' => { quantity: 3, sku: 'U' }
   }.freeze
 
+  GROUP_DISCOUNT_OFFERS = {
+    %w[S T X Y Z] => { quantity: 3, price: 45 }
+  }.freeze
+
   def checkout(skus)
     return -1 if skus.nil? || skus.class != String || skus.chars.any? { |ch| !ITEMS.include?(ch) }
 
@@ -54,6 +58,21 @@ class CheckoutSolution
   def calculate_sum(item_counts)
     sum = 0
 
+    GROUP_DISCOUNT_OFFERS.each do |group, offer|
+      group_skus = group.sort_by { |sku| -GENERAL_PRICES[sku] }
+      group_quantity = item_counts.slice(*group).values.reduce(:+)
+      group_count = group_quantity / offer[:quantity]
+      sum += group_count * offer[:price]
+      items_to_eliminate_from_count = offer[:quantity] * group_count
+
+      while items_to_eliminate_from_count > 0
+        updated_count = [item_counts[group_skus.first] - items_to_eliminate_from_count, 0].max
+        items_to_eliminate_from_count = items_to_eliminate_from_count - item_counts[group_skus.first]
+        item_counts[group_skus.first] = updated_count
+        group_skus.shift
+      end
+    end
+
     item_counts.each do |sku, quantity|
       if MULTI_PRICE_OFFERS[sku]
         MULTI_PRICE_OFFERS[sku].sort_by { |offer| -offer[:quantity] }.each do |offer|
@@ -68,3 +87,4 @@ class CheckoutSolution
     sum
   end
 end
+
