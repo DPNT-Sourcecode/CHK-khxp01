@@ -3,10 +3,11 @@ require 'byebug'
 class CheckoutSolution
 
   PRICES = {
-    A: { price: 50, special_offers: [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }] },
-    B: { price: 30, special_offers: [{ quantity: 2, price: 45 }] },
+    A: { price: 50, discount_offers: [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }] },
+    B: { price: 30, discount_offers: [{ quantity: 2, price: 45 }] },
     C: { price: 20 },
-    D: { price: 15 }
+    D: { price: 15 },
+    E: { price: 40, free_offers: [{ quantity: 2, free: 'B' }] }
   }.freeze
 
   def checkout(skus)
@@ -46,3 +47,4 @@ class CheckoutSolution
     quantity % offer[:quantity] * price_table[:price]
   end
 end
+
