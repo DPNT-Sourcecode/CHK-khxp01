@@ -14,12 +14,20 @@ class CheckoutSolution
 
   MULTI_PRICE_OFFERS = {
     'A' => [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }],
-    'B' => [{ quantity: 2, price: 45 }]
+    'B' => [{ quantity: 2, price: 45 }],
+    'H' => [{ quantity: 5, price: 45 }, { quantity: 10, price: 80 }],
+    'K' => [{ quantity: 2, price: 150 }],
+    'P' => [{ quantity: 5, price: 200 }],
+    'Q' => [{ quantity: 3, price: 80 }],
+    'V' => [{ quantity: 2, price: 90 }, { quantity: 3, price: 130 }],
   }.freeze
 
   FREE_PRODUCT_OFFERS = {
     'E' => { quantity: 2, sku: 'B' },
-    'F' => { quantity: 2, sku: 'F' }
+    'F' => { quantity: 2, sku: 'F' },
+    'N' => { quantity: 3, sku: 'M' },
+    'R' => { quantity: 2, sku: 'Q' },
+    'U' => { quantity: 3, sku: 'U' }
   }.freeze
 
   def checkout(skus)
@@ -60,5 +68,6 @@ class CheckoutSolution
     sum
   end
 end
+
 
 
