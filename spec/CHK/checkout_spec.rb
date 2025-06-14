@@ -93,6 +93,14 @@ describe CheckoutSolution do
       end
     end
   end
-end
 
+  context 'when input contains all products twice' do
+    let(:skus) { 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ' }
+    let(:expected_sum) { 2*50 + 1*30 + 2*20 + 2*15 + 2*40 + 2*10 + 2*20 + 2*10 + 2*35 + 2*60 + 150 + 2*90 + 1*15 + 2*40 + 2*10 + 2*50 + 1*30 + 2*50 + 2*30 + 2*20 + 2*40 + 90 + 2*20 + 2*90 + 2*10 + 2*50 }
+
+    it 'returns the expected price' do
+      expect(service_call).to eq(expected_sum)
+    end
+  end
+end
 
