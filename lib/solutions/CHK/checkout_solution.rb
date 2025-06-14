@@ -59,6 +59,7 @@ class CheckoutSolution
     sum = 0
 
     GROUP_DISCOUNT_OFFERS.each do |group, offer|
+      byebug
       group_skus = group.sort_by { |sku| -GENERAL_PRICES[sku] }
       group_quantity = item_counts.slice(*group).values.reduce(:+)
       group_count = group_quantity / offer[:quantity]
@@ -87,4 +88,3 @@ class CheckoutSolution
     sum
   end
 end
-
