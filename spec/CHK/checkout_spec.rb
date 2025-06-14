@@ -84,9 +84,9 @@ describe CheckoutSolution do
       end
     end
 
-    fcontext 'when the free product is of the same sku' do
+    context 'when the free product is of the same sku' do
       let(:skus) { 'FFFF' }
-      let(:expected_sum) { 2*10 } # 2 F free
+      let(:expected_sum) { 3*10 } # 1 F free
 
       it 'returns the expected price' do
         expect(service_call).to eq(expected_sum)
@@ -94,4 +94,5 @@ describe CheckoutSolution do
     end
   end
 end
+
 
