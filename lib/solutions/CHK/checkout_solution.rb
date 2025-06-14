@@ -6,17 +6,17 @@ class CheckoutSolution
 
   GENERAL_PRICES = {
     'A' => 50, 'B' => 30, 'C' => 20, 'D' => 15, 'E' => 40, 'F' => 10,
-    'G' => 20, 'H' => 10, 'I' => 35, 'J' => 60, 'K' => 80, 'L' => 90,
+    'G' => 20, 'H' => 10, 'I' => 35, 'J' => 60, 'K' => 70, 'L' => 90,
     'M' => 15, 'N' => 40, 'O' => 10, 'P' => 50, 'Q' => 30, 'R' => 50,
-    'S' => 30, 'T' => 20, 'U' => 40, 'V' => 50, 'W' => 20, 'X' => 90,
-    'Y' => 10, 'Z' => 50
+    'S' => 20, 'T' => 20, 'U' => 40, 'V' => 50, 'W' => 20, 'X' => 17,
+    'Y' => 20, 'Z' => 21
   }.freeze
 
   MULTI_PRICE_OFFERS = {
     'A' => [{ quantity: 3, price: 130 }, { quantity: 5, price: 200 }],
     'B' => [{ quantity: 2, price: 45 }],
     'H' => [{ quantity: 5, price: 45 }, { quantity: 10, price: 80 }],
-    'K' => [{ quantity: 2, price: 150 }],
+    'K' => [{ quantity: 2, price: 120 }],
     'P' => [{ quantity: 5, price: 200 }],
     'Q' => [{ quantity: 3, price: 80 }],
     'V' => [{ quantity: 2, price: 90 }, { quantity: 3, price: 130 }],
@@ -68,5 +68,6 @@ class CheckoutSolution
     sum
   end
 end
+
 
 
